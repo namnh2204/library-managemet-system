@@ -88,10 +88,14 @@ public class BookList {
 			current = current.getNextNode();
 			currentPosition++;
 		}
-
-		// current now at k-1 position
-		// set next node of newNode to k+1 position's Node
-		current.setNextNode(current.getNextNode().getNextNode());
+		
+		if (currentPosition != 0) {
+			// current now at k-1 position
+			// set next node of newNode to k+1 position's Node
+			current.setNextNode(current.getNextNode().getNextNode());
+		} else {
+			this.head = current.getNextNode();
+		}
 	}
 
 }
