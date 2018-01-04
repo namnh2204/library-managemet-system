@@ -79,7 +79,7 @@ public class BookList {
 		current.setNextNode(newNode);
 	}
 
-	public void delete(int position) {
+	public void remove(int position) {
 		int currentPosition = 0;
 
 		Node current = this.head;
