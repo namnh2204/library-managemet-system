@@ -1,16 +1,22 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import readers.Reader;
+import readers.ReaderStack;
+import books.Book;
+import books.BookLinkedList;
+
 public class BookLMS {
-	private static String bcode, title;
-	private static int quantity, lended;
+	private static String bcode, title, rcode, name;
+	private static int quantity, lended, byear;
 	private static double price;
-	public static BookList bookList;
+	public static BookLinkedList bookList;
+	public static ReaderStack readerList;
 	public static Scanner sc;
 	
 	public static void main(String[] args) {
 		
-		bookList = new BookList();
+		bookList = new BookLinkedList();
 		bookList.add(new Book("B03", "Morning", 12, 0, 25.1));
 		bookList.add(new Book("B01", "The Noon", 10, 0, 5.2));
 		bookList.add(new Book("B02", "River", 5, 0, 4.3));
@@ -18,6 +24,12 @@ public class BookLMS {
 		bookList.add(new Book("B07", "Biology", 11, 0, 12.2));
 		bookList.add(new Book("B04", "Southern", 9, 0, 5.2));
 		bookList.add(new Book("B06", "Evening", 22, 0, 22.2), 2);
+		
+		readerList = new ReaderStack();
+		readerList.push(new Reader("R03", "Hoa", 1902));
+		readerList.push(new Reader("R01", "La", 1901));
+		readerList.push(new Reader("R02", "Cay", 1903));
+		readerList.push(new Reader("R05", "Canh", 1910));
 
 		
 		while (true) {
@@ -118,7 +130,70 @@ public class BookLMS {
 					}
 					
 				} else if (result == 2){
-					
+					while (true) {
+						System.out.println("Reader list:");
+						System.out.println("1. Add reader");
+						System.out.println("2. Display data");
+						System.out.println("3. Search by rcode");
+						System.out.println("4. Delete by rcode");
+						System.out.println("5. Back");
+						
+						try {
+							int result1 = sc.nextInt();
+							if (result1 == 1){
+								System.out.println("--Add reader--");
+								
+								// get rcode, name and byear
+								getReaderInfo();
+								
+								//push new reader to stack
+								readerList.push(new Reader(rcode, name, byear));
+								System.out.println("Reader with rcode " + rcode + " is added!");
+								
+							} else if (result1 == 2){
+								System.out.println("--Display data--");
+								readerList.displayData();
+							} else if (result1 == 3){
+								System.out.println("--Search by rcode--");
+								sc.nextLine();
+								System.out.println("RCODE: ");
+								rcode = sc.nextLine();
+								
+								System.out.format("%-8s|%-30s|%-6s|\n","RCode", "Name", "BYear");
+								System.out.println("--------+------------------------------+------|");
+								Reader foundReader = readerList.search(rcode);
+								if (foundReader != null) {
+									System.out.println(foundReader.toString());
+								} else {
+									System.out.println("No data found");
+								}
+							} else if (result1 == 4){
+								System.out.println("--Delete by rcode--");
+								while (true) {
+									sc.nextLine();
+									System.out.println("Rcode: ");
+									rcode = sc.nextLine();
+									if (rcode.length() != 0){
+										Reader reader = readerList.search(rcode);
+										if (reader == null) {
+											System.out.println("Reader is not found!");
+										} else {
+											break;
+										}
+									} else {
+										System.out.println("RCODE must not be empty!");
+									}
+								}
+								
+								readerList.remove(rcode);
+								System.out.println("Reader with rcode " + rcode + " is removed!");
+							} else if (result1 == 5){
+								break;
+							}
+						} catch (InputMismatchException e) {
+							System.out.println("Answer must be a number!");
+						}
+					}
 				} else if (result == 3){
 					
 				} else if (result == 4){
@@ -181,7 +256,12 @@ public class BookLMS {
 			System.out.println("Lended: ");
 			try {
 				lended = sc.nextInt();
-				break;
+				if(lended > quantity){
+					System.out.println("Lended must be less than quantity!");
+				} else {
+					break;
+				}
+				
 			} catch (InputMismatchException e) {
 				System.out.println("Lended must be a number!");
 			}
@@ -197,6 +277,53 @@ public class BookLMS {
 				break;
 			} catch (InputMismatchException e) {
 				System.out.println("Price must be a number!");
+			}
+			
+		}
+	}
+	
+	public static void getReaderInfo(){
+		//get rcode
+		while (true){
+			sc.nextLine();
+			System.out.println("RCODE: ");
+			rcode = sc.next();
+			if (rcode.length() != 0){
+				Reader reader = readerList.search(rcode);
+				if (reader != null) {
+					System.out.println("This reader is exist!");
+				} else {
+					break;
+				}
+			} else {
+				System.out.println("RCODE must not be empty!");
+			}
+		}
+		
+		//get name
+		while (true){
+			sc.nextLine();
+			System.out.println("Name: ");
+			name = sc.nextLine();
+			if (name.length() != 0){
+				break;
+			} else {
+				System.out.println("Name must not be empty!");
+			}
+		}
+		
+		//get byear
+		while (true){
+			System.out.println("BYear: ");
+			try {
+				byear = sc.nextInt();
+				if(byear > 2010 || byear < 1900) {
+					System.out.println("BYear mus be between 1900 and 2010");
+				} else {
+					break;
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("BYear must be a number!");
 			}
 			
 		}

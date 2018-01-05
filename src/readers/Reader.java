@@ -1,3 +1,4 @@
+package readers;
 
 public class Reader {
 	private String rcode;
@@ -32,5 +33,10 @@ public class Reader {
 
 	public void setByear(int byear) {
 		this.byear = byear;
+	}
+	
+	@Override
+	public String toString(){
+		return String.format("%-8s|%-30s|%-6d|", this.rcode, this.name, this.byear);
 	}
 }

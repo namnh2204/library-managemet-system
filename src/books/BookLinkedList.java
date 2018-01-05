@@ -1,16 +1,6 @@
-public class BookList {
+package books;
+public class BookLinkedList {
 	private Node head;
-
-	public int length() {
-		int length = 0;
-		Node current = this.head;
-		while (current != null) {
-			current = current.getNextNode();
-			length++;
-		}
-
-		return length;
-	}
 	
 	public void displayData(){
 		Node current = this.head;
