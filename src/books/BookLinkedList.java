@@ -5,8 +5,9 @@ public class BookLinkedList {
 	public void displayData(){
 		Node current = this.head;
 		
+		System.out.println("----------------------------------------------------------------------------------------------------");
 		System.out.format("%-8s|%-50s|%-9s|%-8s|%-7s|%-12s|\n","Code", "Title", "Quantity", "Lended", "Price", "Value");
-		System.out.println("---------------------------------------------------------------------------------------------------|");
+		System.out.println("--------+--------------------------------------------------+---------+--------+-------+------------|");
 		if(current == null){
 			System.out.println("No data found!");
 		}
@@ -14,6 +15,7 @@ public class BookLinkedList {
 			System.out.println(current.getBook().toString());
 			current = current.getNextNode();
 		}
+		System.out.println("----------------------------------------------------------------------------------------------------");
 	}
 	
 	public Book searchByBcode(String bcode) {

@@ -1,6 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import lending_items.Lending;
 import readers.Reader;
 import readers.ReaderStack;
 import books.Book;
@@ -8,7 +9,7 @@ import books.BookLinkedList;
 
 public class BookLMS {
 	private static String bcode, title, rcode, name;
-	private static int quantity, lended, byear;
+	private static int quantity, lended, byear, state;
 	private static double price;
 	public static BookLinkedList bookList;
 	public static ReaderStack readerList;
@@ -71,14 +72,16 @@ public class BookLMS {
 								System.out.println("BCODE: ");
 								String bcode = sc.nextLine();
 								
+								System.out.println("----------------------------------------------------------------------------------------------------");
 								System.out.format("%-8s|%-50s|%-9s|%-8s|%-7s|%-12s|\n","Code", "Title", "Quantity", "Lended", "Price", "Value");
-								System.out.println("---------------------------------------------------------------------------------------------------|");
+								System.out.println("--------+--------------------------------------------------+---------+--------+-------+------------|");
 								Book foundBook = bookList.searchByBcode(bcode);
 								if (foundBook != null) {
 									System.out.println(foundBook.toString());
 								} else {
 									System.out.println("No data found");
 								}
+								System.out.println("----------------------------------------------------------------------------------------------------");
 							} else if (result1 == 4){
 								System.out.println("--Input & add to beginning--");
 								//get book info from user's input
@@ -105,6 +108,7 @@ public class BookLMS {
 								// add book to bookList
 								bookList.add(new Book(bcode, title, quantity, lended, price), k);
 								System.out.println("Book with bcode " + bcode + " is added to the position " + k + " of the list!");
+								
 							} else if (result1 == 6){
 								System.out.println("--Delete position k--");
 
@@ -119,6 +123,7 @@ public class BookLMS {
 									}
 								}
 								
+								// remove book in position k
 								bookList.remove(k);
 								System.out.println("Book with bcode " + bcode + " is removed to the position " + k + " of the list!");
 							} else if (result1 == 7){
@@ -159,14 +164,21 @@ public class BookLMS {
 								System.out.println("RCODE: ");
 								rcode = sc.nextLine();
 								
+								// header of table
+								System.out.println("-----------------------------------------------");
 								System.out.format("%-8s|%-30s|%-6s|\n","RCode", "Name", "BYear");
 								System.out.println("--------+------------------------------+------|");
+								
+								// search by rcode
 								Reader foundReader = readerList.search(rcode);
 								if (foundReader != null) {
 									System.out.println(foundReader.toString());
 								} else {
 									System.out.println("No data found");
 								}
+								
+								System.out.println("-----------------------------------------------");
+								
 							} else if (result1 == 4){
 								System.out.println("--Delete by rcode--");
 								while (true) {
@@ -195,7 +207,31 @@ public class BookLMS {
 						}
 					}
 				} else if (result == 3){
-					
+					/*while (true){
+						System.out.println("Lending list: ");
+						System.out.println("1. Input data");
+						System.out.println("2. Display data");
+						
+						try {
+							int result1 = sc.nextInt();
+							if (result1 == 1){
+								System.out.println("--Input data--");
+								
+								// get bcode, rcode, name and status
+								getLendingInfo();
+								
+								//push new reader to stack
+								lendingList.push(new Lending(bcode, rcode, state));
+								System.out.println("Lending with Bcode: " + bcode + ", Rcode: " + rcode + " is added!");
+								
+							} else if (result1 == 2){
+								System.out.println("--Display data--");
+								lendingList.displayData();
+							}
+						} catch (InputMismatchException e) {
+							System.out.println("Answer must be a number!");
+						}
+					}*/
 				} else if (result == 4){
 					break;
 				} else {
@@ -209,7 +245,7 @@ public class BookLMS {
 	}
 	
 	public static void getBookInfo(){
-		//get bcode
+		//get bcode, bcode must not be empty
 		while (true){
 			sc.nextLine();
 			System.out.println("BCODE: ");
@@ -226,7 +262,7 @@ public class BookLMS {
 			}
 		}
 		
-		//get title
+		//get title, title must not be empty
 		while (true){
 			sc.nextLine();
 			System.out.println("Title: ");
@@ -238,7 +274,7 @@ public class BookLMS {
 			}
 		}
 		
-		//get quantity
+		//get quantity - number verified
 		while (true){
 			System.out.println("Quantity: ");
 			try {
@@ -250,7 +286,7 @@ public class BookLMS {
 			
 		}
 		
-		//get lended
+		//get lended - number verified, lended < quantity
 		while (true){
 			sc.nextLine();
 			System.out.println("Lended: ");
@@ -268,7 +304,7 @@ public class BookLMS {
 			
 		}
 		
-		//get price
+		//get price - number verified
 		while (true){
 			sc.nextLine();
 			System.out.println("Price: ");
@@ -283,7 +319,7 @@ public class BookLMS {
 	}
 	
 	public static void getReaderInfo(){
-		//get rcode
+		//get rcode, rcode must not be empty
 		while (true){
 			sc.nextLine();
 			System.out.println("RCODE: ");
@@ -300,7 +336,7 @@ public class BookLMS {
 			}
 		}
 		
-		//get name
+		//get name, name must not be empty
 		while (true){
 			sc.nextLine();
 			System.out.println("Name: ");
@@ -312,7 +348,7 @@ public class BookLMS {
 			}
 		}
 		
-		//get byear
+		//get byear, between 1990 and 2010
 		while (true){
 			System.out.println("BYear: ");
 			try {
@@ -327,6 +363,10 @@ public class BookLMS {
 			}
 			
 		}
+	}
+	
+	public static void getLendingInfo(){
+		
 	}
 
 }
