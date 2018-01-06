@@ -152,8 +152,7 @@ public class Main {
 
 								// remove book in position k
 								bookList.remove(k);
-								System.out.println("Book with bcode " + bcode
-										+ " is removed to the position " + k
+								System.out.println("The book is removed to the position " + k
 										+ " of the list!");
 							} else if (result1 == 7) {
 								break;
@@ -215,8 +214,8 @@ public class Main {
 
 							} else if (result1 == 4) {
 								System.out.println("--Delete by rcode--");
+								sc.nextLine();
 								while (true) {
-									sc.nextLine();
 									System.out.println("Rcode: ");
 									rcode = sc.nextLine();
 									if (rcode.length() != 0) {
@@ -459,6 +458,7 @@ public class Main {
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("State must be a number!");
+				sc.nextLine();
 			}
 
 		}
