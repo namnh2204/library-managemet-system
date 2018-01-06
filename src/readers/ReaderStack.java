@@ -59,7 +59,7 @@ public class ReaderStack {
 	
 	public void displayData(){
 		ReaderNode current = this.head;
-		System.out.println("-----------------------------------------------");
+		System.out.println("----------------------------------------------");
 		System.out.format("%-8s|%-30s|%-6s|\n","RCode", "Name", "BYear");
 		System.out.println("--------+------------------------------+------|");
 		if(current == null){
@@ -71,7 +71,9 @@ public class ReaderStack {
 			current = current.getNextNode();
 		}
 		
-		System.out.println("-----------------------------------------------");
+		System.out.println("----------------------------------------------"
+				+ ""
+				+ "");
 	}
 	
 	public ReaderStack() {

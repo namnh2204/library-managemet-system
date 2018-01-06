@@ -27,5 +27,9 @@ public class Lending {
 	public void setState(int state) {
 		this.state = state;
 	}
-
+	
+	@Override
+	public String toString(){
+		return String.format("%-8s|%-8s|%-7d|", this.bcode, this.rcode, this.state);
+	}
 }
