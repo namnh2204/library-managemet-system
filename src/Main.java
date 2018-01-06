@@ -19,7 +19,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// demo data. Modify to get data from other source
+		// demo data. TODO: Modify to get data from other source
 		bookList = new BookLinkedList();
 		bookList.add(new Book("B03", "Morning", 12, 0, 25.1));
 		bookList.add(new Book("B01", "The Noon", 10, 0, 5.2));
@@ -68,7 +68,7 @@ public class Main {
 								// get book info from user's input
 								getBookInfo();
 
-								// add book to bookList
+								// add book to bookList. TODO: Add method to save data in other source
 								bookList.add(new Book(bcode, title, quantity,
 										lended, price));
 								System.out.println("Book with bcode " + bcode
@@ -105,7 +105,7 @@ public class Main {
 								// get book info from user's input
 								getBookInfo();
 
-								// add book to bookList
+								// add book to bookList. TODO: Add method to save data in other source
 								bookList.addToBeginning(new Book(bcode, title,
 										quantity, lended, price));
 								System.out
@@ -128,7 +128,7 @@ public class Main {
 									}
 								}
 
-								// add book to bookList
+								// add book to bookList. TODO: Add method to save data in other source
 								bookList.add(new Book(bcode, title, quantity,
 										lended, price), k);
 								System.out.println("Book with bcode " + bcode
@@ -150,7 +150,7 @@ public class Main {
 									}
 								}
 
-								// remove book in position k
+								// remove book in position k. TODO: Add method to save data in other source
 								bookList.remove(k);
 								System.out.println("The book is removed to the position " + k
 										+ " of the list!");
@@ -179,7 +179,7 @@ public class Main {
 								// get rcode, name and byear
 								getReaderInfo();
 
-								// push new reader to stack
+								// push new reader to stack. TODO: Add method to save data in other source
 								readerList.push(new Reader(rcode, name, byear));
 								System.out.println("Reader with rcode " + rcode
 										+ " is added!");
@@ -232,7 +232,8 @@ public class Main {
 												.println("RCODE must not be empty!");
 									}
 								}
-
+								
+								// remove reader by rcode. TODO: Add method to save data in other source
 								readerList.remove(rcode);
 								System.out.println("Reader with rcode " + rcode
 										+ " is removed!");
@@ -257,7 +258,7 @@ public class Main {
 								// get bcode, rcode, name and status
 								getLendingInfo();
 
-								// push new reader to stack
+								// push new lending item to queue. TODO: Add method to save data in other source
 								lendingItemList.enqueue(new Lending(bcode,
 										rcode, state));
 								System.out.println("Lending with Bcode: "
